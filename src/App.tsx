@@ -630,7 +630,7 @@ function App() {
 
       {/* Header */}
       <header className="relative bg-black/20 backdrop-blur-xl border-b border-blue-500/20 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
           <div className="text-center">
             <button 
               onClick={() => {
@@ -647,12 +647,12 @@ function App() {
               </div>
               <div>
                 <h1 className={`font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300 animate-pulse transition-all duration-500 group-hover:from-cyan-300 group-hover:via-blue-300 group-hover:to-cyan-400 ${
-                  selectedCategory ? 'text-3xl' : 'text-5xl'
+                  selectedCategory ? 'text-3xl' : 'text-4xl sm:text-5xl'
                 }`}>
                   YAPAYZEKAYA
                 </h1>
                 <p className={`text-blue-300 font-medium mt-2 transition-all duration-500 group-hover:text-cyan-200 ${
-                  selectedCategory ? 'text-base' : 'text-lg'
+                  selectedCategory ? 'text-base' : 'text-md sm:text-lg'
                 }`}>
                   Yapay Zeka Araçlarının En Kapsamlı Rehberi
                 </p>
@@ -666,14 +666,14 @@ function App() {
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition-opacity"></div>
                 <div className="relative flex items-center">
-                  <Search className="absolute left-6 text-blue-400 h-6 w-6 z-10" />
+                  <Search className="absolute left-4 text-blue-400 h-5 w-5 z-10" />
                   <input
                     type="text"
-                    placeholder="Ne yapmak istiyorsunuz? (örn: logo tasarla, video oluştur, kod yaz...)"
+                    placeholder="Ne yapmak istiyorsunuz?"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className={`w-full pl-16 pr-6 bg-black/40 backdrop-blur-xl border border-blue-500/30 rounded-2xl text-white placeholder-blue-300 focus:outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-300 ${
-                      selectedCategory ? 'py-3 text-base' : 'py-5 text-lg'
+                    className={`w-full pl-12 pr-6 bg-black/40 backdrop-blur-xl border border-blue-500/30 rounded-2xl text-white placeholder-blue-300 focus:outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-300 ${
+                      selectedCategory ? 'py-3 text-sm' : 'py-4 text-base'
                     }`}
                   />
                   <div className="absolute right-4 flex items-center gap-2">
@@ -699,7 +699,7 @@ function App() {
         </div>
       </header>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-12">
         {/* Categories */}
         {!selectedCategory && (
         <section className="mb-16 animate-in fade-in duration-500">
@@ -707,7 +707,7 @@ function App() {
             <h2 className="text-4xl font-bold text-white mb-4">Kategoriler</h2>
             <p className="text-blue-300 text-lg">İhtiyacınıza uygun AI araçlarını keşfedin</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {categories.map((category) => {
               const IconComponent = category.icon;
               const isSelected = selectedCategory === category.id;
@@ -715,7 +715,7 @@ function App() {
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={`group relative p-8 rounded-3xl border-2 transition-all duration-500 hover:scale-105 hover:-translate-y-2 ${
+                  className={`group relative p-6 rounded-3xl border-2 transition-all duration-500 hover:scale-105 hover:-translate-y-2 ${
                     isSelected
                       ? 'bg-gradient-to-br from-blue-600/30 to-cyan-600/30 border-cyan-400 shadow-2xl shadow-cyan-500/25'
                       : 'bg-black/20 backdrop-blur-xl border-blue-500/20 hover:bg-black/30 hover:border-cyan-400/50'
@@ -732,16 +732,16 @@ function App() {
                         ? `bg-gradient-to-r ${category.color}` 
                         : 'bg-blue-500/20 group-hover:bg-blue-500/30'
                     }`}>
-                      <IconComponent className={`h-8 w-8 ${
+                      <IconComponent className={`h-7 w-7 ${
                         isSelected ? 'text-white' : 'text-blue-400 group-hover:text-cyan-400'
                       } transition-colors duration-300`} />
                     </div>
-                    <h3 className={`font-bold text-xl mb-2 transition-colors duration-300 ${
+                    <h3 className={`font-bold text-lg mb-2 transition-colors duration-300 ${
                       isSelected ? 'text-white' : 'text-blue-200 group-hover:text-white'
                     }`}>
                       {category.name}
                     </h3>
-                    <p className={`text-sm transition-colors duration-300 ${
+                    <p className={`text-xs transition-colors duration-300 ${
                       isSelected ? 'text-blue-100' : 'text-blue-400 group-hover:text-blue-300'
                     }`}>
                       {category.description}
@@ -779,11 +779,11 @@ function App() {
               <Star className="h-6 w-6 text-yellow-400" />
               <h3 className="text-2xl font-bold text-white">Öne Çıkan Araçlar</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {featuredTools.map((tool, index) => (
                 <div
                   key={index}
-                  className="group relative bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-xl border border-yellow-500/30 rounded-2xl p-6 hover:border-yellow-400/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
+                  className="group relative bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-xl border border-yellow-500/30 rounded-2xl p-5 hover:border-yellow-400/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
                 >
                   {/* Featured badge */}
                   <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
@@ -835,11 +835,11 @@ function App() {
             {featuredTools.length > 0 && !selectedCategory && (
               <h3 className="text-2xl font-bold text-white mb-8">Diğer Araçlar</h3>
             )}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {(selectedCategory ? filteredTools : regularTools).map((tool, index) => (
                 <div
                   key={index}
-                  className="group relative bg-black/20 backdrop-blur-xl border border-blue-500/20 rounded-3xl p-8 hover:bg-black/30 hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
+                  className="group relative bg-black/20 backdrop-blur-xl border border-blue-500/20 rounded-3xl p-6 hover:bg-black/30 hover:border-cyan-400/50 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
                 >
                   {/* Glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -897,7 +897,7 @@ function App() {
         )}
 
         {/* Footer */}
-        <footer className="mt-20 py-12 border-t border-blue-500/20">
+        <footer className="mt-16 py-10 border-t border-blue-500/20">
           <div className="text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Brain className="h-8 w-8 text-blue-400" />
