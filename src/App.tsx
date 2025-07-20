@@ -900,10 +900,10 @@ function App() {
               <h4 className="text-2xl font-bold text-white">YAPAYZEKAYA</h4>
             </div>
             <p className="text-blue-300 text-lg mb-2">
-              AI araçlarının dünyasını keşfedin ve dijital dönüşümünüzü hızlandırın
+              AI araçlarının dünyasını keşfedin ve dijital dönüşümünüzü hızlandırın.
             </p>
             <p className="text-blue-400">
-              Güncel bilgiler ve yeni araçlar için düzenli olarak kontrol edin
+              Güncel bilgiler ve yeni araçlar için düzenli olarak kontrol edin.
             </p>
           </div>
         </footer>
