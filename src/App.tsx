@@ -23,21 +23,18 @@ const tools: Tool[] = [
     description: "Anthropic tarafından geliştirilen AI asistan. Uzun belgelerde daha fazla bağlam tutabilir, güvenlik odaklı tasarım.",
     website: "https://claude.ai/new",
     category: "metin",
-    featured: true
   },
   {
     name: "Perplexity AI",
     description: "AI destekli arama motoru. Gerçek zamanlı bilgi erişimi ve kaynak referansları ile güvenilir yanıtlar sağlar.",
     website: "https://www.perplexity.ai/",
     category: "metin",
-    featured: true
   },
   {
     name: "DeepSeek",
     description: "Güçlü açık kaynaklı AI modeli. Kod üretimi ve analiz konularında öne çıkan yeni nesil AI asistan.",
     website: "https://chat.deepseek.com/",
     category: "metin",
-    featured: true
   },
   {
     name: "Gemini AI",
@@ -238,7 +235,6 @@ const tools: Tool[] = [
     description: "Metinden video oluşturma (Gen-2), video düzenleme ve AI destekli film yapım araçları sunan platform.",
     website: "https://runwayml.com",
     category: "video",
-    featured: true
   },
   {
     name: "Pika Labs",
@@ -319,14 +315,12 @@ const tools: Tool[] = [
     description: "Microsoft ve OpenAI işbirliğiyle geliştirilen AI kodlama asistanı. VSCode ve JetBrains IDE entegrasyonu.",
     website: "https://github.com/features/copilot",
     category: "kod",
-    featured: true
   },
   {
     name: "Lovable",
     description: "AI ile tam stack web uygulaması geliştirme platformu. Hızlı prototipleme ve deployment özellikleri.",
     website: "https://lovable.dev/",
     category: "kod",
-    featured: true
   },
   {
     name: "Replit Ghostwriter",
@@ -407,7 +401,6 @@ const tools: Tool[] = [
     description: "Metinden otomatik UI tasarımı, wireframe ve mockup oluşturan AI platform. Hızlı prototipleme için ideal.",
     website: "https://uizard.io",
     category: "tasarim",
-    featured: true
   },
   {
     name: "Figma AI",
@@ -464,7 +457,6 @@ const tools: Tool[] = [
     description: "En gelişmiş doğal ses sentezi platformu. Ses klonlama ve çok dilli seslendirme konusunda lider.",
     website: "https://elevenlabs.io",
     category: "ses",
-    featured: true
   },
   {
     name: "Play.ht",
@@ -604,15 +596,21 @@ const categories = [
 ];
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState('metin');
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTools = useMemo(() => {
-    return tools.filter(tool => 
-      tool.category === selectedCategory &&
-      (tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-       tool.description.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
+    return tools.filter(tool => {
+      const category = categories.find(c => c.id === tool.category);
+      const matchesCategory = selectedCategory ? tool.category === selectedCategory : true;
+      const matchesSearch = searchTerm 
+        ? tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (category && category.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (category && category.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        : true;
+      return matchesCategory && matchesSearch;
+    });
   }, [selectedCategory, searchTerm]);
 
   const selectedCategoryInfo = categories.find(cat => cat.id === selectedCategory);
@@ -651,10 +649,10 @@ function App() {
                 }`}>
                   YAPAYZEKAYA
                 </h1>
-                <p className={`text-blue-300 font-medium mt-2 transition-all duration-500 group-hover:text-cyan-200 ${
-                  selectedCategory ? 'text-base' : 'text-md sm:text-lg'
+                <p className={`text-blue-300 font-medium mt-3 tracking-wider transition-all duration-500 group-hover:text-cyan-200 ${
+                  selectedCategory ? 'text-base' : 'text-lg sm:text-xl'
                 }`}>
-                  Yapay Zeka Araçlarının En Kapsamlı Rehberi
+                  Yapay Zekaya En Kolay Erişim
                 </p>
               </div>
             </button>
@@ -732,9 +730,7 @@ function App() {
                         ? `bg-gradient-to-r ${category.color}` 
                         : 'bg-blue-500/20 group-hover:bg-blue-500/30'
                     }`}>
-                      <IconComponent className={`h-7 w-7 ${
-                        isSelected ? 'text-white' : 'text-blue-400 group-hover:text-cyan-400'
-                      } transition-colors duration-300`} />
+                      <IconComponent className={`h-7 w-7 text-white transition-colors duration-300`} />
                     </div>
                     <h3 className={`font-bold text-lg mb-2 transition-colors duration-300 ${
                       isSelected ? 'text-white' : 'text-blue-200 group-hover:text-white'
@@ -776,36 +772,36 @@ function App() {
         {featuredTools.length > 0 && !selectedCategory && (
           <section className="mb-12 animate-in slide-in-from-bottom duration-700">
             <div className="flex items-center gap-3 mb-8">
-              <Star className="h-6 w-6 text-yellow-400" />
+              <Star className="h-6 w-6 text-blue-400" />
               <h3 className="text-2xl font-bold text-white">Öne Çıkan Araçlar</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {featuredTools.map((tool, index) => (
                 <div
                   key={index}
-                  className="group relative bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-xl border border-yellow-500/30 rounded-2xl p-5 hover:border-yellow-400/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
+                  className="group relative bg-gradient-to-br from-black/40 to-black/20 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-5 hover:border-blue-400/60 transition-all duration-500 hover:scale-105 hover:-translate-y-2"
                 >
                   {/* Featured badge */}
-                  <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                  <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                     <Star className="h-3 w-3" />
                     Öne Çıkan
                   </div>
                   
                   {/* Glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-4">
-                      <h3 className="text-lg font-bold text-white group-hover:text-yellow-300 transition-colors duration-300">
+                      <h3 className="text-lg font-bold text-white group-hover:text-blue-300 transition-colors duration-300">
                         {tool.name}
                       </h3>
                       <a
                         href={tool.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-yellow-500/20 hover:bg-yellow-500 rounded-lg transition-all duration-300 hover:scale-110 group/link"
+                        className="p-2 bg-blue-500/20 hover:bg-blue-500 rounded-lg transition-all duration-300 hover:scale-110 group/link"
                       >
-                        <ExternalLink className="h-4 w-4 text-yellow-400 group-hover/link:text-white transition-colors" />
+                        <ExternalLink className="h-4 w-4 text-blue-400 group-hover/link:text-white transition-colors" />
                       </a>
                     </div>
                     
@@ -817,7 +813,7 @@ function App() {
                       href={tool.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-amber-500 text-black px-4 py-2 rounded-lg hover:from-yellow-600 hover:to-amber-600 transition-all duration-300 hover:scale-105 font-bold text-sm shadow-lg"
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 hover:scale-105 font-bold text-sm shadow-lg"
                     >
                       <Zap className="h-4 w-4" />
                       Hemen Kullan
@@ -889,7 +885,7 @@ function App() {
               <p className="text-blue-300 text-lg mb-2">
                 "{searchTerm}" için araç bulunamadı
               </p>
-              <p className="text-blue-400">
+              <p className="text-400">
                 Farklı bir arama terimi deneyin
               </p>
             </div>
